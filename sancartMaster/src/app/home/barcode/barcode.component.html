@@ -1,0 +1,94 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title pl-2 text-center justify-content-center" id="exampleModalLongTitle">Enter Barcode Number
+          to Add Items to the Cart</h5>
+        <button type="button" class="close backColor" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row p-3" *ngFor="let cd of userForm.get('barcodeData')?.controls ;let i=index;">
+            <div class=" form-group col-12 col-sm-12 col-md-12 col-lg-12 mt-2">
+              <form [formGroup]="userForm" autocomplete="off">
+                <div class="row" formArrayName="barcodeData">
+                  <div class='col-md-8 col-lg-8' [formGroupName]="i">
+                    <input class="form-control form-control-lg br-none" type="number" formControlName="barcodeNumber"
+                      placeholder="barcodeNumber" (keyup)="onKey($event)">
+                    <div *ngIf="i==checkIndexno" class="text-danger text-center mt-1 ">{{responseData.message}}</div>
+                  </div>
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <button class="btn outline btn-lg" type="submit" (click)=verify(i) [disabled]="click">check</button>
+                  </div>
+                  <div class="col-sm-2 col-md-2 col-lg-2" *ngIf="userForm.get('barcodeData').value[i].barcodeNumber">
+                    <button type="button" class="btn btn-danger btn-circle btn-lg" (click)="deleteInput(i)"><i
+                        class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="submit" data-toggle="modal" data-dismiss="modal" [attr.data-target]="'#exampleModalCenter2'"
+              class="btn btn-lg btnMyColor w-100">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--model-->
+<div class="modal fade" [attr.id]="'exampleModalCenter2'" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="container">
+          <div class="row mt-4" *ngFor="let item of barCodeReposeData ; let  i = index">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+              <h6>{{item.name}}({{item.quantity}})</h6>
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+              <button class="btn btn-light" (click)="addQuantity1(barCodeReposeData , i)">+</button>
+              &nbsp;<button class="btn btn-light" (click)="removeQ(barCodeReposeData , i)">-</button>
+            </div>
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 ">
+              <h6 class="float-right mr-4">{{item.price}}</h6>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="container ml-3">
+        <div class="row mt-3 mb-2">
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6 ">
+            <h6>Bill details</h6>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6 ">
+            <h5><b>To Pay</b></h5>
+          </div>
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-center">
+            <h5><b>{{totalPrice}}</b></h5>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success btn-lg w-100" data-dismiss="modal" (click)="some()">Create
+          Order</button>
+      </div>
+    </div>
+  </div>
+</div>

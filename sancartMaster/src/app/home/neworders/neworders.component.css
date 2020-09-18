@@ -1,0 +1,134 @@
+.btnMyColor{
+  background-color:#9e64f0 ;
+  color: white;
+  width: 180px;
+}
+
+.blinking{
+  animation:blinkingText 1.2s infinite;
+}
+@keyframes blinkingText{
+  0%{     color: #000;    }
+  49%{    color: #000; }
+  60%{    color: transparent; }
+  99%{    color:transparent;  }
+  100%{   color: #000;    }
+}
+.myMargin{
+  /* margin-top:230px;
+  margin-right:-200px; */
+  /* position: fixed; */
+}
+
+.textColor{
+  color:#9e64f0;
+}
+/* .btnMyColor:hover{
+  background-color:#7634d3 ;
+  width: 150px;
+} */
+
+/* .myBtn{
+  border-radius: 35px;
+} */
+
+.lesBorder{
+  border-bottom: solid  #9e64f0 2px ;
+  box-shadow: 1px 1px 2px gray;
+}
+
+.removeUnderline{
+  text-decoration: none;
+  color: inherit;
+
+}
+
+/* @media (max-height : 425px){
+  .sideMr{
+    margin-left: 100px;
+    color: red;
+
+  }
+} */
+/* @media screen and (max-width: 1920px) and (min-width: 1200px){
+  .center{
+   width:220px
+  }
+}
+
+@media screen and (max-width: 1460px) and (min-width: 1200px){
+  .center{
+   width:220px
+  }
+}
+@media screen and (max-width: 1201px) and (min-width: 996px){
+  .center{
+   width:180px
+  }
+}
+@media screen and (max-width: 768px){
+  .center{
+   width:120px;
+   font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 425px) and (min-width: 300px){
+  .center{
+   width:150px;
+
+   margin-top:10px;
+   justify-content: center;
+   align-items: center;
+  }
+  .hello{
+    float: right;
+    margin-top: -32px;
+
+  }
+}
+
+@media screen and (max-width: 375px)and (min-width: 320px) {
+  .center{
+   width:130px;
+   margin-top:10px;
+   justify-content: center;
+   align-items: center;
+  }
+  .hello{
+    float: right;
+    margin-top:-33px;
+
+  }
+}  */
+
+/*
+@media screen and (max-width: 425px) and (min-width: 300px){
+  .textChange{
+  font-size:14px;
+  color:red;
+
+  }
+
+} */
+
+/*
+@media screen and (max-width: 425px) and (min-width: 300px){
+
+  .textAlign{
+
+      font-size: 18px;
+      line-height: 26px;
+      margin-left: 4px;
+  }
+
+  .otpAli{
+    margin-top: 2px;
+  }
+
+} */
+.overflow-scroll
+{
+height: 100%;
+
+}

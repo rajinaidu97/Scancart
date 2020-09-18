@@ -1,0 +1,22 @@
+.btnMyColor
+{
+  background-color:#9e64f0 ;
+  color: white;
+}
+.outline{
+  /* outline-color: #9e64f0; */
+  border: #9e64f0 1px solid;
+}
+.outline:hover{
+ background-color: #9e64f0;
+ color: aliceblue;
+}
+
+.backColor
+{
+
+  color: #9e64f0;
+  font-size:30px;
+
+}
+
