@@ -1,0 +1,52 @@
+.btnMyColor
+{
+  background-color:#9e64f0 ;
+  color: white;
+}
+
+.bg{
+  content: '';
+  position:fixed;
+  background-image: url(../../assets/backgroun-v2);
+  width: 100%;
+  height: 100%;
+
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+
+}
+@media (max-width: 994px) {
+
+  /* .bg-white{
+     width: 1000px;
+     height: auto;
+  } */
+
+}
+
+.br-none{
+  border:1 solid;
+  border-radius: 10px;
+}
+.bg-white{
+  border:0 solid transparent;
+  border-radius: 15px
+}
+ .myMargin{
+  margin-top: 150px;
+}
+
+/*
+.bg-white{
+  box-shadow: 1px 1px 5px gray;
+} */
+
+.textColor{
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+
+}
+

@@ -1,0 +1,57 @@
+.btnMyColor{
+  background-color:#9e64f0 ;
+  color: white;
+  width: 180px;
+}
+
+.blinking{
+  animation:blinkingText 1.2s infinite;
+}
+@keyframes blinkingText{
+  0%{     color: #000;    }
+  49%{    color: #000; }
+  60%{    color: transparent; }
+  99%{    color:transparent;  }
+  100%{   color: #000;    }
+}
+.myMargin{
+  /* margin-top:230px;
+  margin-right:-200px; */
+  /* position: fixed; */
+}
+
+.textColor{
+  color:#9e64f0;
+}
+/* .btnMyColor:hover{
+  background-color:#7634d3 ;
+  width: 150px;
+} */
+
+/* .myBtn{
+  border-radius: 35px;
+} */
+
+.lesBorder{
+  border-bottom: solid  #9e64f0 2px ;
+  box-shadow: 1px 1px 2px gray;
+}
+
+.removeUnderline{
+  text-decoration: none;
+  color: inherit;
+
+}
+
+.overflow-scroll
+{
+height: 100%;
+
+}
+.padding{
+  margin-top: 5px;
+}
+.MyColor{
+  background-color:#9e64f0;
+  color: white;
+}

@@ -1,0 +1,122 @@
+<div class="container overflow-scroll">
+  <div class="row pt-5" #containerDOM>
+    <div class="col-md-6 pt-3" *ngFor="let detail of listData; index as i;">
+      <a data-toggle="modal" [attr.data-target]="'#exampleModalCenter'+detail.id">
+        <div class="card pl-3 lesBorder">
+          <div class="card-body">
+            <div class="row ">
+              <div class="col-md-6 textAlign">
+                <h6 class="card-text textAlign"><span>Id : </span>{{detail.id}}</h6>
+                <h6 class="card-text textAlign"><span>CustomerName : </span>{{detail.userName}}</h6>
+                <h6 class="card-text textAlign"><span>purchaseDate : </span><span
+                    class="textColor">{{detail.purchaseDate |date}}</span></h6>
+              </div>
+              <div class="col-sm-6 col-md-6 col-lg-6">
+                <div *ngFor="let item of detail.listOfOrderAttr">
+                  <span *ngIf="item.name == 'CONFIRM_OTP' ">
+                    <h6 class="btn btn-outline-dark btn-sm textAlign otpAli"> OTP : {{item.value}}</h6>
+                  </span>
+                </div>
+                <h6 class="card-text textAlign">{{detail.orderType}}</h6>
+                <div *ngFor="let item of detail.listOfOrderAttr">
+                  <h6 class="card-text textAlign" *ngIf="item.name == 'PAYTYPE' ">PayType : <span
+                      class="textColor textAlign">{{item.value}}</span></h6>
+                </div>
+              </div>
+
+              <div class="row pt-4 mx-auto mx-md-0 ">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 ">
+                  <button class="btn btn-outline-success btn-block blinking center">{{detail.status}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="row pt-5 justify-content-center">
+    <div class="col-md-1 ">
+      <button type="button" class="btn MyColor" (click)="previous()" [disabled]="pageNumber <= 0">Prev</button>
+    </div>
+    <h5 class="padding">{{pageNumber+1}}/ {{totalPages}}&nbsp;PAGES</h5>
+    <div class="col-md-1">
+      <button type="button" class="btn MyColor" (click)="next()"
+      [disabled]="pageNumber == totalPages -1">Next</button>
+    </div>
+  </div>
+
+
+  <div *ngFor="let detail of listData; index as i;">
+    <div class="modal fade" [attr.id]="'exampleModalCenter'+detail.id" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="container">
+              <div class="row mt-4" *ngFor="let item1 of  detail.listOfItems">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                  <h6>{{item1.name}}({{item1.quantity}})</h6>
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 ">
+                  <h6 class="float-right mr-4">{{item1.price}}</h6>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="container ml-3">
+            <div class="row mt-3 mb-2">
+              <div class="col-6 col-sm-6 col-md-6 col-lg-6 ">
+                <h6>Bill details</h6>
+              </div>
+            </div>
+            <div *ngFor="let item of detail.listOfOrderAttr">
+              <div class="row">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 mt-2 mb-2" *ngIf="item.name == 'TOTAL_AMOUNT' ">
+                  <h5>{{item.name |removeUnderscore}}</h5>
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-center mb-2" *ngIf="item.name == 'TOTAL_AMOUNT' ">
+                  <h5>{{item.value}} </h5>
+                </div>
+              </div>
+              <!-- delivery fee -->
+              <div class="row ">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6  mt-2 mb-2" *ngIf="item.name == 'DELIVERY_FEE' ">
+                  <h6>{{item.name | removeUnderscore}}</h6>
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-center mb-2" *ngIf="item.name == 'DELIVERY_FEE' ">
+                  <h6>{{item.value}}</h6>
+                </div>
+              </div>
+              <!-- taxes -->
+              <div class="row ">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 mt-2 mb-2" *ngIf="item.name == 'TAXES_AND_CHARGES' ">
+                  <h6>{{item.name|removeUnderscore}}</h6>
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-center mb-2 "
+                  *ngIf="item.name =='TAXES_AND_CHARGES' ">
+                  <h6>{{item.value}}</h6>
+                </div>
+              </div>
+            </div>
+            <br>
+            <!-- <div class="row">
+              <div class="col-6 col-sm-6 col-md-6 col-lg-6 ">
+                <h5><b>To Pay</b></h5>
+              </div>
+              <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-center">
+                *ngIf="currentStatus !== 'open' || currentStatus !== 'reopen' "
+                <h5><b>11.50</b></h5>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

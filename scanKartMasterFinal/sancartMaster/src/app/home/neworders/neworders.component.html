@@ -1,0 +1,181 @@
+<div class="container overflow-scroll">
+  <div class="row pt-5" #containerDOM>
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6  pt-3 " *ngFor="let detail of listData let i = index ">
+      <!-- <div class="col-md-6 pt-3" *ngFor="let detail of listData; index as i;"> -->
+      <div class="card pl-3 lesBorder">
+        <div class="card-body">
+          <div class="row " data-toggle="modal" (click)="showCardprice(detail.id, detail.userId, detail.listOfItems)"
+            [attr.data-target]="'#exampleModalCenter'+detail.id">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+              <h6 class="card-text"><span>Order Id : </span>{{detail.id}}</h6>
+              <h6 class="card-text"><span>Customer Name : </span>{{detail.userName}}</h6>
+              <h6 class="card-text"><span>purchase Date : </span><span
+                  class="textColor">{{detail.purchaseDate |date}}</span></h6>
+            </div>
+            <div class=" col-12 col-sm-6 col-md-6 col-lg-6">
+              <div *ngFor="let item of detail.listOfOrderAttr">
+                <span *ngIf="item.name == 'CONFIRM_OTP' ">
+                  <h6 class="btn btn-outline-dark btn-sm otpAli"> OTP : {{item.value}}</h6>
+                </span>
+              </div>
+              <h6 class="card-text">{{detail.orderType}}</h6>
+              <div *ngFor="let item of detail.listOfOrderAttr">
+                <h6 class="card-text" *ngIf="item.name == 'PAYTYPE' ">Pay Type : <span
+                    class="textColor">{{item.value}}</span></h6>
+              </div>
+            </div>
+          </div>
+          <div class="row pt-4 ">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+              <button class="btn btn-outline-warning blinking text-center w-75">{{detail.status}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row pt-5 justify-content-center">
+    <div class="col-2 col-sm-2 col-md-1 col-lg-1">
+      <button type="button" class="btn MyColor" (click)="previous()" [disabled]="pageNumber <= 0">Prev</button>
+    </div>
+    <h5 class="padding">{{pageNumber+1}}/ {{totalPages}}&nbsp;PAGES</h5>
+    <div class="col-2 col-sm-2 col-md-1 col-lg-1">
+      <button type="button" class="btn MyColor" (click)="next()"
+      [disabled]="pageNumber == totalPages -1">Next</button>
+    </div>
+  </div>
+
+  <div *ngFor="let detail of listData; let i = index">
+    <div class="modal fade" [attr.id]="'exampleModalCenter'+detail.id" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="!openAddBarForm">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="container">
+              <div class="row mt-4" *ngFor="let item1 of barCodeResposeData;let i = index">
+                <div class="col-5 col-sm-5 col-md-5 col-lg-5 ">
+                  <h6>{{item1.name}}({{item1.quantity}})</h6>
+                </div>
+                <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                  <button class="btn btn-light" (click)="addQuantity(barCodeResposeData , i)">+</button>
+                  &nbsp;<button class="btn btn-light" (click)="removeQuantity(barCodeResposeData, i)">-</button>
+                </div>
+                <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+                  <h6 class="sideMr">{{item1.price}}</h6>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeData()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="container ml-3">
+            <div class="row mt-3 mb-2">
+              <div class="col-6 col-sm-6 col-md-6 col-lg-6 ">
+                <h6>Bill details</h6>
+              </div>
+            </div>
+            <div *ngFor="let item of detail.listOfOrderAttr">
+              <!-- <div class="row">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 mt-2 mb-2" *ngIf="item.name == 'TOTAL_AMOUNT' ">
+                  <h6>{{item.name |removeUnderscore}}</h6>
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-center mb-2 " *ngIf="item.name == 'TOTAL_AMOUNT' ">
+                  <h6>{{item.value}} </h6>
+                </div>
+              </div> -->
+
+              <!-- delivery fee -->
+              <div class="row ">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6  mt-2 mb-2" *ngIf="item.name == 'DELIVERY_FEE' ">
+                  <h6>{{item.name |removeUnderscore}}</h6>
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-center mb-2" *ngIf="item.name == 'DELIVERY_FEE' ">
+                  <h6>{{item.value}}</h6>
+                </div>
+              </div>
+              <!-- taxes -->
+              <div class="row ">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 mt-2 mb-2" *ngIf="item.name == 'TAXES_AND_CHARGES' ">
+                  <h6>{{item.name|removeUnderscore}}</h6>
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-center mb-2 "
+                  *ngIf="item.name =='TAXES_AND_CHARGES' ">
+                  <h6>{{item.value}}</h6>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-6 col-sm-6 col-md-6 col-lg-6 ">
+                <h5><b>To Pay</b></h5>
+              </div>
+              <div class="col-6 col-sm-6 col-md-6 col-lg-6 text-center">
+                <h5><b>{{totalPrice}}</b></h5>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <!--  [disabled] = "detail.listOfOrderAttr[i].name === 'IS_PAID' && detail.listOfOrderAttr[i].value === 'Y'"  -->
+            <button type="button" class="btn btnMyColor btn-lg" (click)="confirmOtp(detail)"
+              style="width: 150px;">confirmOtp</button>
+            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-dismiss="modal"
+              data-target="#exampleModalCenter5" style="width: 150px;" (click)="addBarCode()">Add</button>
+            <button type="button" class="btn btnMyColor btn-lg" style="width: 150px;" data-dismiss="modal"
+              (click)="updateCards()">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-------abb barCode-->
+    <div class="modal fade" id="exampleModalCenter5" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="openAddBarForm">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title pl-2" id="exampleModalLongTitle">Enter Barcode Number to Add Items to the Cart</h5>
+            <button type="button" class="close backColor" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row justify-content-center"
+                *ngFor="let cd of userForm.get('barcodeData')?.controls ;let i=index;">
+                <div class=" form-group col-12 col-sm-12 col-md-12 col-lg-12 p-4">
+                  <form [formGroup]="userForm" autocomplete="off">
+                    <div class="row" formArrayName="barcodeData">
+                      <div class='col-sm-6 col-md-6 col-lg-6' [formGroupName]="i">
+                        <input class="form-control form-control-lg br-none" type="number"
+                          formControlName="barcodeNumber" placeholder="barcodeNumber">
+                        <p *ngIf="i==checkIndexno" class="text-danger text-center">{{responseData.message}}</p>
+                      </div>
+                      <div class="col-sm-3 col-md-3 col-lg-3 ">
+                        <button class="btn btnMyColor btn-lg w-100" type="submit" (click)=verify(i)>check</button>
+                      </div>
+                      <div class="col-sm-3 col-md-3 col-lg-3"
+                        *ngIf="userForm.get('barcodeData').value[i].barcodeNumber">
+                        <button type="button" class="btn btn-danger btn-circle btn-lg" (click)="deleteInput(i)"><i
+                            class="fa fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="submit" data-toggle="modal" [attr.data-target]="'#exampleModalCenter'+detail.id"
+              class="btn btn-lg btnMyColor w-100" (click)="addData1(3)">Add</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
